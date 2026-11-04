@@ -1,0 +1,53 @@
+
+name: BalakenElan - APK yig
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Balaken-Elan-105-AndroidStudio.zip'
+      - '.github/workflows/build-apk.yml'
+
+jobs:
+  build-debug-apk:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    timeout-minutes: 30
+    steps:
+      - name: Repo fayllarini al
+        uses: actions/checkout@v4
+
+      - name: Java 17 qur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK qur
+        uses: android-actions/setup-android@v3
+
+      - name: Android API 35 qur
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Gradle 8.9 qur
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Layiheni arxivden cixar
+        run: |
+          test -f Balaken-Elan-105-AndroidStudio.zip
+          mkdir -p android-project
+          unzip -q Balaken-Elan-105-AndroidStudio.zip -d android-project
+
+      - name: APK yig
+        run: gradle -p android-project --no-daemon :app:assembleDebug
+
+      - name: APK faylini hazir et
+        uses: actions/upload-artifact@v4
+        with:
+          name: BalakenElan-105-APK
+          path: android-project/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7
