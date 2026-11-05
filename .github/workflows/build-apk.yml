@@ -1,3 +1,4 @@
+
 name: BalakenElan - APK yig
 
 on:
@@ -13,6 +14,7 @@ jobs:
     permissions:
       contents: read
     timeout-minutes: 30
+
     steps:
       - name: Repo fayllarini al
         uses: actions/checkout@v4
@@ -23,14 +25,14 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-            - name: Android SDK yoxla
+      - name: Android SDK yoxla
         run: |
           echo "Android SDK: $ANDROID_HOME"
           sdkmanager --version
-      
 
       - name: Android API 35 qur
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        run: |
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Gradle 8.9 qur
         uses: gradle/actions/setup-gradle@v4
@@ -44,7 +46,8 @@ jobs:
           unzip -q Balaken-Elan-105-AndroidStudio.zip -d android-project
 
       - name: APK yig
-        run: gradle -p android-project --no-daemon :app:assembleDebug
+        run: |
+          gradle -p android-project --no-daemon :app:assembleDebug
 
       - name: APK faylini hazir et
         uses: actions/upload-artifact@v4
