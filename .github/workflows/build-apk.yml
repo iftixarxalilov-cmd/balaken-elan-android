@@ -1,11 +1,10 @@
-
 name: BalakenElan - APK yig
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Balaken-Elan-105-AndroidStudio.zip'
+      - 'Balaken-Elan-106-AndroidStudio.zip'
       - '.github/workflows/build-apk.yml'
 
 jobs:
@@ -39,9 +38,9 @@ jobs:
 
       - name: Layiheni arxivden cixar
         run: |
-          test -f Balaken-Elan-105-AndroidStudio.zip
+          test -f Balaken-Elan-106-AndroidStudio.zip
           mkdir -p android-project
-          unzip -q Balaken-Elan-105-AndroidStudio.zip -d android-project
+          unzip -q Balaken-Elan-106-AndroidStudio.zip -d android-project
 
       - name: APK yig
         run: |
@@ -50,7 +49,7 @@ jobs:
       - name: APK faylini hazir et
         uses: actions/upload-artifact@v4
         with:
-          name: BalakenElan-105-APK
+          name: BalakenElan-106-APK
           path: android-project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 7
