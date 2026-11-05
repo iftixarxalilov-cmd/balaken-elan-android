@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'Balaken-Elan-106-AndroidStudio.zip'
+      - 'Balaken-Elan-106-AndroidStudio (2).zip'
       - '.github/workflows/build-apk.yml'
 
 jobs:
@@ -38,9 +38,9 @@ jobs:
 
       - name: Layiheni arxivden cixar
         run: |
-          test -f Balaken-Elan-106-AndroidStudio.zip
+          test -f "Balaken-Elan-106-AndroidStudio (2).zip"
           mkdir -p android-project
-          unzip -q Balaken-Elan-106-AndroidStudio.zip -d android-project
+          unzip -q "Balaken-Elan-106-AndroidStudio (2).zip" -d android-project
 
       - name: APK yig
         run: |
