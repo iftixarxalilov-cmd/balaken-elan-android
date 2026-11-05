@@ -23,8 +23,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Android SDK qur
-        uses: android-actions/setup-android@v3
+            - name: Android SDK yoxla
+        run: |
+          echo "Android SDK: $ANDROID_HOME"
+          sdkmanager --version
+      
 
       - name: Android API 35 qur
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
